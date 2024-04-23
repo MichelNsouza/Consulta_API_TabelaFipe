@@ -33,14 +33,26 @@
       <hr>
 
       <h2>Qual tipo de veículo você procura?</h2>
-
       <div class="vehicles_types_container">
+        
         <ul id="vehicles_types" x-data="{ activeIndex: null }">
+          
           <template x-for="(veiculo, index) in dadosVeiculos">
             <li 
               :data-type="veiculo.tipo" 
               :class="{ 'active': activeIndex === index }"
-              @click="activeIndex = index, fabricanteSelecionado=veiculo.id ,buscarFabricante(veiculo.id)">
+              @click="
+              if(activeIndex != index){
+                activeIndex = index;
+                veiculoSelecionado=veiculo.id;
+                veiculoSelecionadoBol=true;
+                buscarFabricante();
+              }else{
+                activeIndex = !index;
+                veiculoSelecionado = '';
+                veiculoSelecionadoBol=false;
+              }"
+            >
               <img 
                 :src="veiculo.imagem" 
                 :alt="veiculo.alt">
@@ -50,20 +62,51 @@
       </div>
 
       <h2>Selecione o fabricante do veículo</h2>
-      
-        <select on:change="buscaCidades($event.target.value)">
-          <template x-for="fabricante in dadosFabricantes">
-            <option :value="fabricante.id" x-text="fabricante.name"></option>
-          </template>
-        </select>
+      <select 
+        x-model="veiculoSelecionadoBol" 
+        x-bind:disabled="veiculoSelecionadoBol == false"
+        @change="buscarModelo(), fabricanteSelecionado = $event.target.value"
+      >
+        <option>--- Fabricantes ---</option>
+        <template x-for="fabricante in dadosFabricantes">
+          <option 
+            :value="fabricante.code" 
+            x-text="fabricante.name"
+            >            
+          </option>
+        </template>
+            
+      </select>
 
       <h2>Selecione o modelo do veículo</h2>
 
-      <select id="vehicles_model" disabled></select>
-
+      <select 
+        id="vehicles_model"
+        x-model="fabricanteSelecionado" 
+        x-bind:disabled="fabricanteSelecionado === ''">
+        <option>--- Modelos ---</option>
+        <template x-for="modelo in dadosModelos">
+          <option 
+            :value="modelo.id" 
+            x-text="modelo.name">            
+          </option>
+        </template>
+      </select>
+      
       <h2>Selecione o ano do veículo</h2>
 
-      <select id="vehicles_year" disabled></select>
+      <select 
+        id="vehicles_year"
+        x-model="modeloSelecionado" 
+        x-bind:disabled="modeloSelecionado === ''">
+        <option>--- Ano ---</option>
+        <template x-for="Ano in dadosAnos">
+          <option 
+            :value="Ano.id" 
+            x-text="Ano.name">            
+          </option>
+        </template>
+      </select>
 
       <div class="search_button hide">
         <div class="icon">
@@ -126,6 +169,7 @@
 
     </div>
   </div>
+  
 </body>
 
 </html>
