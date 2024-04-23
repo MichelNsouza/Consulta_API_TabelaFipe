@@ -51,6 +51,9 @@
                 activeIndex = !index;
                 veiculoSelecionado = '';
                 veiculoSelecionadoBol=false;
+                fabricanteSelecionadoBol=false;
+                modeloSelecionadoBol=false;
+                anoSelecionadoBol=false;
               }"
             >
               <img 
@@ -66,7 +69,16 @@
         id="vehicles_brand"
         x-model="veiculoSelecionadoBol" 
         :disabled="!veiculoSelecionadoBol"
-        @change="fabricanteSelecionado = $event.target.value; buscarModelo();">
+        @change="
+        if(fabricanteSelecionadoBol != true ){
+          fabricanteSelecionado = $event.target.value; 
+          fabricanteSelecionadoBol=true;
+        buscarModelo();
+        }else{
+          fabricanteSelecionado = '';
+          fabricanteSelecionadoBol=false;
+        }
+        ">
         <option>--- Fabricantes ---</option>
         <template x-for="fabricante in dadosFabricantes">
           <option 
@@ -81,8 +93,19 @@
 
       <select 
         id="vehicles_model"
-        x-model="fabricanteSelecionado" 
-        x-bind:disabled="fabricanteSelecionado === ''">
+        x-model="fabricanteSelecionadoBol" 
+        :disabled="!fabricanteSelecionadoBol"
+        @change="
+        if(modeloSelecionadoBol != true ){
+          modeloSelecionado = $event.target.value; 
+          modeloSelecionadoBol=true;
+        buscarAno();
+        }else{
+          modeloSelecionado = '';
+          modeloSelecionadoBol=false;
+        }
+        ">
+        
         <option>--- Modelos ---</option>
         <template x-for="modelo in dadosModelos">
           <option 
@@ -93,11 +116,28 @@
       </select>
       
       <h2>Selecione o ano do veículo</h2>
-
-      <select id="vehicles_year">
+      <select 
+        id="vehicles_year"
+        x-model="modeloSelecionadoBol" 
+        :disabled="!modeloSelecionadoBol"
+        @change="
+        if(anoSelecionadoBol != true ){
+          anoSelecionado = $event.target.value; 
+          anoSelecionadoBol=true;
+        buscarAno();
+        }else{
+          anoSelecionado = '';
+          anoSelecionadoBol=false;
+        }
+        ">
         <option>--- Ano ---</option>
-
-      </select>
+        <template x-for="ano in dadosAnos">
+          <option 
+            :value="ano.code" 
+            x-text="ano.name">            
+          </option>
+        </template>
+        </select>
 
       <div class="search_button hide">
         <div class="icon">

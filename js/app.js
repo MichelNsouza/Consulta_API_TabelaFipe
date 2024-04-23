@@ -3,9 +3,14 @@ const appFipe = () => {
     url:"https://fipe.parallelum.com.br/api/v2/",
     
     veiculoSelecionado:"",
-    veiculoSelecionadoBol:false,
     fabricanteSelecionado:"",
     modeloSelecionado:"",
+    anoSelecionado:"",
+    
+    veiculoSelecionadoBol:false,
+    fabricanteSelecionadoBol:false,
+    modeloSelecionadoBol:false,
+    anoSelecionadoBol:false,
     
     dadosVeiculos:[
       {
@@ -29,6 +34,7 @@ const appFipe = () => {
     ],
     dadosFabricantes:[],
     dadosModelos:[],
+    dadosAnos:[],
 
     buscarFabricante(){
       axios.get(
@@ -49,6 +55,16 @@ const appFipe = () => {
           console.log(error);
         })
       },
+
+    buscarAno(){
+      axios.get(    
+  this.url+`${this.veiculoSelecionado}/brands/${this.fabricanteSelecionado}/models/${this.modeloSelecionado}/years`
+        ).then((resposta) => {
+            this.dadosAnos = resposta.data;
+          }).catch((error) => {
+            console.log(error);
+          })
+        },
     
   }
 }
