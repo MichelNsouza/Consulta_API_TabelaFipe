@@ -3,7 +3,8 @@
 Este repositório contém a atividade proposta em sala de aula, sem valor de pontuação, para aprofundar os conhecimentos em casa no consumo de API's, pelo Professor Paulo Reis na disciplina de Desenvolvimento Web 1 do curso de BSI - UNIME.
 
 ## Tecnologias utilizadas
-- FrontEnd: HTML, CSS (Feito pelo professor) 
+- FrontEnd Base: HTML, CSS (Feito pelo professor)
+- FrontEnd: Alpine.Js
 - Backend: JavaScript
 - requisições HTTP: Axios
 
