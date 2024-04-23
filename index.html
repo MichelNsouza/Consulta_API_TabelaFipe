@@ -16,9 +16,9 @@
   
 </head>
 
-<body>
+<body x-data="appFipe()">
 
-  <div x-data="appFipe()" class="container">
+  <div class="container">
 
     <div class="content">
 
@@ -50,6 +50,7 @@
                 fabricanteSelecionadoBol=false;
                 modeloSelecionadoBol=false;
                 anoSelecionadoBol=false;
+                fipeSelecionadoBol=false;
               }else{
                 activeIndex = !index;
                 veiculoSelecionado = '';
@@ -57,6 +58,7 @@
                 fabricanteSelecionadoBol=false;
                 modeloSelecionadoBol=false;
                 anoSelecionadoBol=false;
+                fipeSelecionadoBol=false;
               }"
             >
               <img 
@@ -142,13 +144,14 @@
         </template>
         </select>
 
-      <div :class="(anoSelecionadoBol)? 'search_button search_button_show':'search_button hide'">
-        <div class="icon">
-          <img src="images/search.svg">
-        </div>
-        <div class="label">
-          Buscar preço
-        </div>
+      <div :class="(anoSelecionadoBol)? 'search_button search_button_show':'search_button hide'"
+        x-on:click="buscarFipe(), fipeSelecionadoBol=true, modal=true">
+          <div class="icon">
+            <img src="images/search.svg">
+          </div>
+          <div class="label">
+            Buscar preço
+          </div>
       </div>
 
     </div>
@@ -162,12 +165,12 @@
 
   </div>
 
-  <div class="modal hide_modal">
+  <div :class="(fipeSelecionadoBol)? 'modal' : 'modal hide_modal'">
     <div class="body">
 
       <div class="row">
-        <div class="vehicle_name"></div>
-        <div class="close">
+        <div x-text="fipeSelecionado.model" class="vehicle_name"></div>
+        <div @click="fipeSelecionadoBol=false" class="close">
           <img src="images/close.svg">
         </div>
       </div>
@@ -176,22 +179,22 @@
 
         <div class="reference_month">
           <strong>Mês de referencia:</strong><br>
-          <span class="value"></span>
+          <span x-text="fipeSelecionado.referenceMonth" class="value"></span>
         </div>
 
         <div class="fipe_code">
           <strong>Código Fipe:</strong><br>
-          <span class="value"></span>
+          <span x-text="fipeSelecionado.codeFipe" class="value"></span>
         </div>
 
         <div class="brand">
           <strong>Marca:</strong><br>
-          <span class="value"></span>
+          <span x-text="fipeSelecionado.brand" class="value"></span>
         </div>
 
         <div class="year">
           <strong>Ano/Model:</strong><br>
-          <span class="value"></span>
+          <span x-text="fipeSelecionado.modelYear" class="value"></span>
         </div>
 
       </div>
@@ -199,7 +202,7 @@
       <hr>
 
       <h3>Preço médio</h3>
-      <div class="price"></div>
+      <div x-text="fipeSelecionado.price" class="price"></div>
 
     </div>
   </div>

@@ -11,6 +11,7 @@ const appFipe = () => {
     fabricanteSelecionadoBol:false,
     modeloSelecionadoBol:false,
     anoSelecionadoBol:false,
+    fipeSelecionadoBol:false,
     
     dadosVeiculos:[
       {
@@ -35,7 +36,8 @@ const appFipe = () => {
     dadosFabricantes:[],
     dadosModelos:[],
     dadosAnos:[],
-
+    fipeSelecionado:[],
+    
     buscarFabricante(){
       axios.get(
         this.url+`${this.veiculoSelecionado}/brands`
@@ -45,7 +47,6 @@ const appFipe = () => {
         console.log(error);
       })
     },
-    
     buscarModelo(){
     axios.get(
         this.url+`${this.veiculoSelecionado}/brands/${this.fabricanteSelecionado}/models`
@@ -55,7 +56,6 @@ const appFipe = () => {
           console.log(error);
         })
       },
-
     buscarAno(){
       axios.get(    
   this.url+`${this.veiculoSelecionado}/brands/${this.fabricanteSelecionado}/models/${this.modeloSelecionado}/years`
@@ -65,7 +65,15 @@ const appFipe = () => {
             console.log(error);
           })
         },
-    
+    buscarFipe(){
+      axios.get(
+                this.url+`${this.veiculoSelecionado}/brands/${this.fabricanteSelecionado}/models/${this.modeloSelecionado}/years/${this.anoSelecionado}`
+              ).then((resposta) => {
+                  this.fipeSelecionado = resposta.data;
+                }).catch((error) => {
+                  console.log(error);
+                })
+    }
   }
 }
 
