@@ -47,6 +47,9 @@
                 veiculoSelecionado=veiculo.id;
                 veiculoSelecionadoBol=true;
                 buscarFabricante();
+                fabricanteSelecionadoBol=false;
+                modeloSelecionadoBol=false;
+                anoSelecionadoBol=false;
               }else{
                 activeIndex = !index;
                 veiculoSelecionado = '';
@@ -79,7 +82,7 @@
           fabricanteSelecionadoBol=false;
         }
         ">
-        <option>--- Fabricantes ---</option>
+        <option selected >--- Fabricantes ---</option>
         <template x-for="fabricante in dadosFabricantes">
           <option 
             :value="fabricante.code" 
@@ -106,7 +109,7 @@
         }
         ">
         
-        <option>--- Modelos ---</option>
+        <option selected  >--- Modelos ---</option>
         <template x-for="modelo in dadosModelos">
           <option 
             :value="modelo.code" 
@@ -130,7 +133,7 @@
           anoSelecionadoBol=false;
         }
         ">
-        <option>--- Ano ---</option>
+        <option selected >--- Ano ---</option>
         <template x-for="ano in dadosAnos">
           <option 
             :value="ano.code" 
